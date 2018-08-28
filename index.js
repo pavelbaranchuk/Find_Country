@@ -28,7 +28,7 @@ async function getNearestCountry(data) {
     if (data.x && data.y) {
       distance = Math.sqrt((obj.y - data.y) * (obj.y - data.y) +
       (obj.x - data.x) * (obj.x - data.x));
-    } else if (data.y != 0) {
+    } else if (data.y != null) {
       distance = Math.abs(obj.y - data.y);
     } else {
       distance = Math.abs(obj.x - data.x);
