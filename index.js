@@ -1,3 +1,13 @@
+var request = new Request('https://github.com/pavelbaranchuk/findcountry/blob/master/countries.json');
+
+        fetch(request, {mode: 'cors'}).then(function(response) {
+            return response.json();
+        }).then(function(j) {
+            console.log(JSON.stringify(j)); 
+        }).catch(function(error) {  
+            console.log('Request failed', error)  
+        });
+
 function getCountry() {
     let input = document.getElementById("txt").value;
     let result = validateInput(input);
