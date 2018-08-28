@@ -1,43 +1,23 @@
-var request = new Request('https://github.com/pavelbaranchuk/findcountry/blob/master/countries.json');
-
-        fetch(request, {mode: 'cors'}).then(function(response) {
-            return response.json();
-        }).then(function(j) {
-            console.log(JSON.stringify(j)); 
-        }).catch(function(error) {  
-            console.log('Request failed', error)  
-        });
-
-function getCountry() {
-    let input = document.getElementById("txt").value;
-    let result = validateInput(input);
-    print = '';
-    if (!result) {
-        alert("Пожалуйста, введите корректные данные, например:\nx=54,y=3\ny=13,x=782\nx=245\ny=24")
-    } else {
-        print = getTheNearestCountry(result).join(', ');
-        document.getElementById("output")
-        .innerHTML = 'Ближайшая страна: ' + "<u>" + print + " </u>";
-    }
-    return false;
+async function getCountriesList() {
+    const response = await fetch('https://raw.githubusercontent.com/pavelbaranchuk/findcountry/master/countries.json');  
+    const data = await response.json();
+    return data;
 }
 
-function getTheNearestCountry(data) {
+async function getTheNearestCountry(data) {
     let nearest = [];
     let distance = 0;
     let smallest = 1000000;
-    let countries = { json :
-        data
-    }
+    countries = await getCountriesList();
 
-    for (let i = 0; i < countries.json.length; i++) {
-        let obj = countries.json[i];
+    for (let i = 0; i < countries.length; i++) {
+        let obj = countries[i];
 
         if ((data.x) && (data.y)) {
             distance =
             Math.sqrt((obj.y - data.y)*(obj.y - data.y) +
             (obj.x - data.x)*(obj.x - data.x));
-        } else (data.y) 
+        } else ((data.y) || data.y == 0) 
         ? distance = Math.abs((obj.y - data.y)) 
         : distance = Math.abs((obj.x - data.x));
         if (smallest == distance) {
@@ -52,6 +32,20 @@ function getTheNearestCountry(data) {
     return nearest;   
 }
 
+async function getCountry() {
+    let input = document.getElementById("txt").value;
+    let result = validateInput(input);
+    print = '';
+    if (!result) {
+        alert("Пожалуйста, введите корректные данные, например:\nx=54,y=3\ny=13,x=782\nx=245\ny=24")
+    } else {
+        print = await getTheNearestCountry(result);
+        console.log(print,'print')
+        document.getElementById("output")
+        .innerHTML = 'Ближайшая страна: ' + "<u>" + print.join(', '); + " </u>";
+    }
+    return false;
+}
 
 function validateInput(s) {
   const matches = s.trim().match(/^([xy])=(\d+)(,([xy])=(\d+))?$/)
@@ -69,5 +63,3 @@ function validateInput(s) {
   }
   return null
 }
-
-
