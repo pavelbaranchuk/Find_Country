@@ -1,4 +1,5 @@
 const COUNTRIES_URL = "https://raw.githubusercontent.com/pavelbaranchuk/findcountry/master/countries.json";
+let countries;
 
 async function getCountriesList() {
   try {
@@ -16,18 +17,21 @@ async function getNearestCountry(data) {
   let nearest =  [];
   let distance = 0;
   let smallest = Math.pow(10, 10);
-  const countries = await getCountriesList();
+  
+  if (!countries) {
+    countries = await getCountriesList();
+  }
 
   for (let i = 0; i < countries.length; i++) {
     const obj = countries[i];
 
-    if ((data.x) && (data.y)) {
+    if (data.x && data.y) {
       distance = Math.sqrt((obj.y - data.y) * (obj.y - data.y) +
       (obj.x - data.x) * (obj.x - data.x));
-    } else if ((data.y) || data.y == 0) {
-      distance = Math.abs((obj.y - data.y));
+    } else if (data.y != 0) {
+      distance = Math.abs(obj.y - data.y);
     } else {
-      distance = Math.abs((obj.x - data.x));
+      distance = Math.abs(obj.x - data.x);
     }
 
     if (smallest == distance) {
@@ -46,16 +50,16 @@ async function getNearestCountry(data) {
 async function getCountries() {
   const input =  document.getElementById("txt").value;
   const result = validateInput(input);
-  let print =  "";
+  let country =  "";
   if (!result) {
     alert("Пожалуйста, введите корректные данные, например:\nx=54,y=3\ny=13,x=782\nx=245\ny=24");
   } else {
-    print = await getNearestCountry(result);
-    console.log(print, "print");
+    country = await getNearestCountry(result);
+    console.log(country, "print");
     document.getElementById("output1")
       .innerHTML = "Ближайшая страна: ";
     document.getElementById("output2")
-      .innerHTML = print.join(", ");
+      .innerHTML = country.join(", ");
   }
   return false;
 }
