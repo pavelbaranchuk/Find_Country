@@ -1,0 +1,25 @@
+[{ 
+    "x": 255,
+    "y": 350,
+    "country": "Ukraine"
+}, {
+    "x": 720,
+    "y": 100,
+    "country": "Canada"
+}, { 
+    "x": 450,
+    "y": 135,
+    "country": "USA"
+}, {
+    "x": 265,
+    "y": 138,
+    "country": "Belgium"
+}, {
+    "x": 95,
+    "y": 275,
+    "country": "Germany"
+}, {
+    "x": 850,
+    "y": 400,
+    "country": "Croatia"
+}]
