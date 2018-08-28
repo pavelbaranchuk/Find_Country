@@ -1,7 +1,14 @@
+const COUNTRIES_URL = "https://raw.githubusercontent.com/pavelbaranchuk/findcountry/master/countries.json";
+
 async function getCountriesList() {
-  const response = await fetch("https://raw.githubusercontent.com/pavelbaranchuk/findcountry/master/countries.json");  
-  const data = await response.json();
-  return data;
+  try {
+    const response = await fetch(COUNTRIES_URL);  
+    const data = await response.json();
+    return data;
+  } catch (err) {
+    console.log("Fetch Error :-S", err);
+    return null;
+  }
 }
 
 
@@ -9,11 +16,7 @@ async function getNearestCountry(data) {
   let nearest =  [];
   let distance = 0;
   let smallest = Math.pow(10, 10);
-  const countries = await getCountriesList()
-    .then(data => {
-      console.log(data);
-    })
-    .catch(err => console.log("error: ", err));
+  const countries = await getCountriesList();
 
   for (let i = 0; i < countries.length; i++) {
     const obj = countries[i];
@@ -49,8 +52,10 @@ async function getCountries() {
   } else {
     print = await getNearestCountry(result);
     console.log(print, "print");
-    document.getElementById("output")
-      .innerHTML = "Ближайшая страна: " + "<u>" + print.join(", "); + " </u>";
+    document.getElementById("output1")
+      .innerHTML = "Ближайшая страна: ";
+    document.getElementById("output2")
+      .innerHTML = print.join(", ");
   }
   return false;
 }
@@ -71,4 +76,3 @@ function validateInput(s) {
   }
   return null;
 }
-
