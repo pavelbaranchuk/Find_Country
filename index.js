@@ -16,34 +16,34 @@ async function getCountriesList() {
 async function getNearestCountry(data) {
   let nearest =  [];
   let distance = 0;
-  let smallest = Math.pow(10, 10);
+  let smallest;
   
   if (!countries) {
     countries = await getCountriesList();
   }
 
   for (let i = 0; i < countries.length; i++) {
-    const obj = countries[i];
+    const country = countries[i];
 
     if (data.x && data.y) {
-      distance = Math.sqrt((obj.y - data.y) * (obj.y - data.y) +
-      (obj.x - data.x) * (obj.x - data.x));
+      distance = Math.sqrt((country.y - data.y) * (country.y - data.y)
+        + (country.x - data.x) * (country.x - data.x));
     } else if (data.y != null) {
-      distance = Math.abs(obj.y - data.y);
+      distance = Math.abs(country.y - data.y);
     } else {
-      distance = Math.abs(obj.x - data.x);
+      distance = Math.abs(country.x - data.x);
     }
 
-    if (smallest == distance) {
-      nearest.push(obj.country);
-    }
-
-    if (smallest > distance) {
-      nearest = [];
-      smallest = distance;
-      nearest.push(obj.country);
+    if (smallest === undefined || distance <= smallest) {
+      if (distance === smallest) {
+        nearest.push(country.country);
+      } else {
+        nearest = [country.country];
+        smallest = distance;
+      }
     }
   }
+
   return nearest;   
 }
 
