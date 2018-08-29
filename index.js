@@ -48,6 +48,7 @@ async function getNearestCountry(data) {
 }
 
 async function getCountries() {
+  event.preventDefault();
   const input =  document.getElementById("txt").value;
   const result = validateInput(input);
   let country =  "";
