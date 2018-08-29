@@ -6,16 +6,18 @@
         <link rel="stylesheet" type="text/css" href="style.css" />
     </head>
     <body>
-        <div class="container">
+        <form onsubmit="getCountries()" class="container">
             <div class="data">
             <input type="text" id="txt" placeholder="Введите координаты..."/>
-            <a href="#" onclick="getCountry()" class="submit-button">Поиск</a>
+            <input type="submit" value="Поиск">
             </div>
             <div class="result">
-                <h1><output id="output">&nbsp;</output></h1>
+                <h1><output id="output1">&nbsp;</output>
+                    <u><output id="outtestput2"></output></u>
+                </h1>
                 
             </div>
-        </div>
+        </form>
         <script type="text/javascript" src="index.js"></script>
     </body>
 </html>
