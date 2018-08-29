@@ -1,7 +1,7 @@
 const COUNTRIES_URL = "https://raw.githubusercontent.com/pavelbaranchuk/findcountry/master/countries.json";
 let countries;
 
-async function getCountriesList() {
+async function getCountriesList() { // Getting the data from 'countries.json' file
   try {
     const response = await fetch(COUNTRIES_URL);  
     const data = await response.json();
@@ -13,19 +13,19 @@ async function getCountriesList() {
 }
 
 
-async function getNearestCountry(data) {
+async function getNearestCountry(data) { //Searching for the nearest country or countries
   let nearest =  [];
   let distance = 0;
   let smallest;
   
-  if (!countries) {
-    countries = await getCountriesList();
+  if (!countries) { // Checking if we have the data from 'countries.json' file, so we don't need to call the function again
+    countries = await getCountriesList();  
   }
 
   for (let i = 0; i < countries.length; i++) {
     const country = countries[i];
 
-    if (data.x && data.y) {
+    if (data.x && data.y) { 
       distance = Math.sqrt((country.y - data.y) * (country.y - data.y)
         + (country.x - data.x) * (country.x - data.x));
     } else if (data.y != null) {
@@ -36,7 +36,7 @@ async function getNearestCountry(data) {
 
     if (smallest === undefined || distance <= smallest) {
       if (distance === smallest) {
-        nearest.push(country.country);
+        nearest.push(country.country); // If we have several countries with the same distance we save it to array
       } else {
         nearest = [country.country];
         smallest = distance;
@@ -47,7 +47,7 @@ async function getNearestCountry(data) {
   return nearest;   
 }
 
-async function getCountries() {
+async function getCountries() { //Main function
   event.preventDefault();
   const input =  document.getElementById("txt").value;
   const result = validateInput(input);
@@ -65,7 +65,7 @@ async function getCountries() {
 }
 
 function validateInput(s) {
-  const matches = s.trim().match(/^([xy])=(\d+)(,([xy])=(\d+))?$/);
+  const matches = s.trim().match(/^([xy])=(\d+)(,([xy])=(\d+))?$/); // Check that entered data is valid
   if (matches) {
     const [, xy1, value1, , xy2, value2] = matches;
     if (xy1 !== xy2) {
