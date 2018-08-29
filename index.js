@@ -55,7 +55,6 @@ async function getCountries() {
     alert("Пожалуйста, введите корректные данные, например:\nx=54,y=3\ny=13,x=782\nx=245\ny=24");
   } else {
     country = await getNearestCountry(result);
-    console.log(country, "print");
     document.getElementById("output1")
       .innerHTML = "Ближайшая страна: ";
     document.getElementById("output2")
