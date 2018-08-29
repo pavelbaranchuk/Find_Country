@@ -8,7 +8,7 @@ https://pavelbaranchuk.github.io/findcountry/
 
 ## Built With
 
-* [ES6]test
+* [ES6]
 
 ## Author
 

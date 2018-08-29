@@ -57,4 +57,5 @@
       "space-in-parens": ["error", "never"],
       "space-infix-ops": "error"
     }
-  }test
+  }
+>>>>>>> 1ea8ebccd89c38b2672183b73c3e2ec5b73ba761

@@ -13,7 +13,7 @@ async function getCountriesList() {
 }
 
 
-async functtestion getNearestCountry(data) {
+async function getNearestCountry(data) {
   let nearest =  [];
   let distance = 0;
   let smallest;
