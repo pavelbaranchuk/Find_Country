@@ -1,7 +1,8 @@
 const COUNTRIES_URL = "https://raw.githubusercontent.com/pavelbaranchuk/findcountry/master/countries.json";
 let countries;
 
-async function getCountriesList() { // Getting the data from 'countries.json' file
+// Getting the data from 'countries.json' file
+async function getCountriesList() { 
   try {
     const response = await fetch(COUNTRIES_URL);  
     const data = await response.json();
@@ -12,13 +13,14 @@ async function getCountriesList() { // Getting the data from 'countries.json' fi
   }
 }
 
-
-async function getNearestCountry(data) { //Searching for the nearest country or countries
+//Searching for the nearest country or countries
+async function getNearestCountry(data) { 
   let nearest =  [];
   let distance = 0;
   let smallest;
   
-  if (!countries) { // Checking if we have the data from 'countries.json' file, so we don't need to call the function again
+  // Checking if we have the data from 'countries.json' file, so we don't need to call the function again
+  if (!countries) { 
     countries = await getCountriesList();  
   }
 
@@ -36,18 +38,20 @@ async function getNearestCountry(data) { //Searching for the nearest country or 
 
     if (smallest === undefined || distance <= smallest) {
       if (distance === smallest) {
-        nearest.push(country.country); // If we have several countries with the same distance we save it to array
+        // If we have several countries with the same distance we save it to array
+        nearest.push(country.country); 
       } else {
         nearest = [country.country];
         smallest = distance;
       }
     }
   }
-
-  return nearest;   
+  
+  return nearest;
 }
 
-async function getCountries() { //Main function
+//Main function
+async function getCountries() { 
   event.preventDefault();
   const input =  document.getElementById("txt").value;
   const result = validateInput(input);
