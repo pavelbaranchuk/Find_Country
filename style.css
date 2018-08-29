@@ -11,7 +11,7 @@
 .result {
     display: flex;
     justify-content: space-around;
-
+}
 
 .container {
     display: flex;
